@@ -15,6 +15,13 @@ body {
 .grid-container {
     height: calc(100vh - 8rem);
     background-color: lightgreen;
+    overflow: auto;
+}
+.top-part{
+    display: flex;
+}
+.bottom-part{
+    display: flex;
 }
 .sheets-container {
     background-color: lightblue;
@@ -28,18 +35,57 @@ body {
     padding-top: 0.2rem;
     padding-left: 0.3rem;
 }
+.box{
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid green;
+    text-align: center;
+}
+.left-box{
+    min-width: 2rem;
+}
+.top-row{
+    height: 2rem;
+    display: flex;
+}
+.cell{
+    height: 2rem;
+    min-width: 4rem;
+    border: 1px solid crimson;
+    text-align: center;
+}
+.grid{
+    background-color: white;
+}
+.row{
+    display: flex;
+}
+
+/* sheet css */
 .sheet-list {
     width: calc(100vw - 3rem);
     border: 1px solid;
     display: flex;
     overflow: auto;
 }
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sheet-list::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.sheet-list {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: 2px; /* Firefox */
+}
 .sheet {
-    width: 5rem;
+    min-width: 5rem;
     border: 1px solid blue;
     height: 100%;
     background-color: grey;
 }
-.active{
+.active {
     background-color: white;
 }
+
+
