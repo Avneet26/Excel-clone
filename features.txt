@@ -1,0 +1,12 @@
+1. Grid
+    100*26
+
+2. Formula
+
+3. Formatting
+    -Color
+    -font size/weight
+
+4. Multiple Sheets
+
+5. New / Download / Open File
