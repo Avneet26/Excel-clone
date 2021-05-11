@@ -6,6 +6,10 @@
 3. Formatting
     -Color
     -font size/weight
+    -font family
+    -bold/italic/underline
+    -alignment
+    -cell color
 
 4. Multiple Sheets
 

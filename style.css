@@ -6,22 +6,84 @@ body {
 }
 .menu-container {
     height: 4rem;
-    background-color: bisque;
+    display: flex;
+    width: 100vw;
+    align-items: center;
+    gap: 0.5rem;
 }
+.font-size{
+    width: 4rem;
+    height: 2rem;
+    margin-left: 1rem
+}
+.font-family{
+    width: 10rem;
+    height: 2rem;
+}
+.bui-align{
+    width: 6rem;
+    height: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.bui-container{
+    background-color: white;
+    height: 2rem;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.bui-container button{
+    height: 97%;
+    width: 32%;
+    background-color: white;
+    border: 1px solid #aaa;
+}
+.align-container{
+    height: 2rem;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.align-container button{
+    height: 97%;
+    width: 32%;
+    background-color: white;
+    border: 1px solid #aaa;
+}
+.color-container{
+    border: 1px solid;
+    height: 3.5rem;
+    width: 7rem;
+}
+
+/*FORMULA BAR STYLING*/
 .formula-container {
     height: 2rem;
-    background-color: lightcoral;
+    background-color: lightseagreen;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
+.formula-container *{
+    height: 70%;
+}
+.address-input{
+    width: 4rem;
+}
+.formula-input{
+    width: calc(100vw - 6rem);
+}
+
+/* GRID STYLING */
 .grid-container {
     height: calc(100vh - 8rem);
-    background-color: lightgreen;
     overflow: auto;
-}
-.top-part{
-    display: flex;
-}
-.bottom-part{
-    display: flex;
+    position: relative;
 }
 .sheets-container {
     background-color: lightblue;
@@ -38,27 +100,45 @@ body {
 .box{
     height: 2rem;
     width: 2rem;
-    border: 1px solid green;
+    border: 1px solid #eee;
     text-align: center;
+    border-right: 1px solid #aaa;
 }
 .left-box{
     min-width: 2rem;
+    background-color: gray;
 }
 .top-row{
     height: 2rem;
     display: flex;
+    position: absolute;
+    left: 2rem;
+    top: 0rem;
+}
+.top-row .cell{
+    border-bottom: 1px solid #aaa;
 }
 .cell{
     height: 2rem;
-    min-width: 4rem;
-    border: 1px solid crimson;
+    min-width: 5rem;
+    border: 1px solid #eee;
     text-align: center;
+}
+.cell:focus{
+    outline: none;
 }
 .grid{
     background-color: white;
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
 }
 .row{
     display: flex;
+}
+.active-cell{
+    border: 1px solid #aaa;
+    background-color: #ddd;
 }
 
 /* sheet css */
