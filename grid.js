@@ -3,7 +3,8 @@ let leftCol = document.querySelector(".left-row");
 let addressInput = document.querySelector(".address-input");
 let bold = document.querySelector(".bold");
 let underline = document.querySelector(".underline");
-let italic = document.querySelector(".italic")
+let italic = document.querySelector(".italic");
+let alignBtns = document.querySelectorAll(".align-container *");
 
 let rows = 100;
 for (let i = 1; i <= 100; i++) {
@@ -41,6 +42,25 @@ for (let i = 0; i < 100; i++) {
     grid.appendChild(row);
 }
 
+let dbSheet = [];
+for (let i = 0; i < rows; i++) {
+    let row = [];
+    for (let j = 0; j < cols; j++) {
+        let cell = {
+            bold: "normal",
+            italics: "normal",
+            underline: "none",
+            hAlign: "center",
+            fontFamily: "sans-serif",
+            fontSize: "16",
+            color: "black",
+            bgColor: "white",
+        };
+        row.push(cell);
+    }
+    dbSheet.push(row);
+}
+
 let allcells = document.querySelectorAll(".grid .cell");
 
 function handleCellClick(e) {
@@ -58,22 +78,86 @@ function handleCellClick(e) {
         allcells[i].classList.remove("active-cell");
     }
     cell.classList.add("active-cell");
+
+    //Cell ki properties check krke menu vale button ko handle kro
+    let cellObj = dbSheet[rid][cid];
+    if (cellObj.bold == "normal") {
+        bold.classList.remove("active-btn");
+    } else {
+        bold.classList.add("active-btn");
+    }
+    if (cellObj.underline == "none") {
+        underline.classList.remove("active-btn");
+    } else {
+        underline.classList.add("active-btn");
+    }
+    if (cellObj.italics == "normal") {
+        italic.classList.remove("active-btn");
+    } else {
+        italic.classList.add("active-btn");
+    }
+    if (cellObj.hAlign == "center") {
+        document.querySelector(".center").classList.add("active-btn");
+    }
 }
 
 //excel me first cell clicked hota hai already
 allcells[0].click();
 
+// ***********Formatting code***********
+
 bold.addEventListener("click", function () {
-    setUiElem().style.fontWeight = "bold";
-});
-underline.addEventListener("click", function () {
-    setUiElem().style.textDecoration = "underline";
-});
-italic.addEventListener("click", function () { 
-    setUiElem().style.fontStyle = "italic";
+    let uielem = setUiElem();
+    let rid = uielem.getAttribute("rid");
+    let cid = uielem.getAttribute("cid");
+    let cellObj = dbSheet[rid][cid];
+    console.log(cellObj);
+    if (cellObj.bold == "normal") {
+        setUiElem().style.fontWeight = "bold";
+        cellObj.bold = "bold";
+        bold.classList.add("active-btn");
+    } else {
+        bold.classList.remove("active-btn");
+        setUiElem().style.fontWeight = "normal";
+        cellObj.bold = "normal";
+    }
 });
 
-function setUiElem(){
+underline.addEventListener("click", function () {
+    let uielem = setUiElem();
+    let rid = uielem.getAttribute("rid");
+    let cid = uielem.getAttribute("cid");
+    let cellObj = dbSheet[rid][cid];
+    console.log(cellObj);
+    if (cellObj.underline == "none") {
+        setUiElem().style.textDecoration = "underline";
+        cellObj.underline = "underline";
+        underline.classList.add("active-btn");
+    } else {
+        setUiElem().style.textDecoration = "none";
+        cellObj.underline = "none";
+        underline.classList.remove("active-btn");
+    }
+});
+
+italic.addEventListener("click", function () {
+    let uielem = setUiElem();
+    let rid = uielem.getAttribute("rid");
+    let cid = uielem.getAttribute("cid");
+    let cellObj = dbSheet[rid][cid];
+    console.log(cellObj);
+    if (cellObj.italics == "normal") {
+        setUiElem().style.fontStyle = "italic";
+        cellObj.italics = "italic";
+        italic.classList.add("active-btn");
+    } else {
+        setUiElem().style.fontStyle = "normal";
+        cellObj.italics = "normal";
+        italic.classList.remove("active-btn");
+    }
+});
+
+function setUiElem() {
     let address = addressInput.value;
     let riciObj = getidFromAddress(address);
     let rid = riciObj.rid;
@@ -86,4 +170,12 @@ function getidFromAddress(address) {
     let cid = Number(address.charCodeAt(0)) - 65;
     let rid = Number(address.slice(1)) - 1;
     return { rid, cid };
+}
+
+for (let i = 0; i < alignBtns.length; i++) {
+    alignBtns[i].addEventListener("click", function () {
+        let allignment = alignBtns[i].getAttribute("class");
+        let uiElem = setUiElem();
+        uiElem.style.textAlign = allignment;
+    });
 }

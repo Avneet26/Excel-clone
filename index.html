@@ -17,6 +17,13 @@
     </head>
     <body>
         <div class="menu-container">
+
+            <div class="nos-container">
+                <button class="new">N</button>
+                <input type="file" class="open">
+                <button class="download">D</button>
+            </div>
+
             <select class="font-size">
                 <option value="8">8px</option>
                 <option value="10">10px</option>
@@ -38,13 +45,16 @@
                     <button class="underline"><i class="fas fa-underline"></i></button>
                 </div>
                 <div class="align-container">
-                    <button><i class="fas fa-align-left"></i></button>
-                    <button><i class="fas fa-align-center"></i></button>
-                    <button><i class="fas fa-align-right"></i></button>
+                    <button class="left"><i class="fas fa-align-left"></i></button>
+                    <button class="center"><i class="fas fa-align-center"></i></button>
+                    <button class="right"><i class="fas fa-align-right"></i></button>
                 </div>
             </div>
 
-            <div class="color-container">color</div>
+            <div class="color-container">
+                <input type="color" class="font-color">
+                <input type="color" class="cell-color">
+            </div>
         </div>
         <div class="formula-container">
             <input type="text" class="address-input" readonly/>
@@ -67,4 +77,5 @@
     </body>
     <script src="script.js"></script>
     <script src="grid.js"></script>
+    <script src="newOpenSave.js"></script>
 </html>
