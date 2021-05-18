@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: 'Roboto';
 }
 body {
     margin: 0px;
@@ -108,7 +109,7 @@ body {
 }
 .left-box{
     min-width: 2rem;
-    background-color: gray;
+    background-color: #eee;
 }
 .top-row{
     height: 2rem;
@@ -122,9 +123,11 @@ body {
 }
 .cell{
     height: 2rem;
-    min-width: 5rem;
+    width: 5rem;
+    max-width: 5rem;
     border: 1px solid #eee;
     text-align: center;
+    padding: 0.25rem;
 }
 .cell:focus{
     outline: none;
@@ -139,8 +142,8 @@ body {
     display: flex;
 }
 .active-cell{
-    border: 1px solid #aaa;
-    background-color: #ddd;
+    border: 1px solid rgb(170, 255, 208);
+    background-color: rgb(240, 240, 240);
 }
 
 /* sheet css */

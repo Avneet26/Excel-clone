@@ -6,6 +6,10 @@ let underline = document.querySelector(".underline");
 let italic = document.querySelector(".italic");
 let alignBtns = document.querySelectorAll(".align-container *");
 let formulaBar = document.querySelector(".formula-input");
+let fontColor = document.querySelector(".font-color");
+let fontSelect = document.querySelector(".font-family");
+let fontSizeSelect = document.querySelector(".font-size");
+let bgColorSelect = document.querySelector(".cell-color");
 
 let rows = 100;
 for (let i = 1; i <= 100; i++) {
@@ -36,6 +40,7 @@ for (let i = 0; i < 100; i++) {
         cells.setAttribute("rid", i);
         cells.setAttribute("cid", j);
         cells.setAttribute("contenteditable", "true");
+        cells.setAttribute("spellcheck", "false");
         row.appendChild(cells);
         //sath ke sath add event listener to every cell
         cells.addEventListener("click", handleCellClick);
@@ -105,10 +110,10 @@ function createSheet() {
                 italics: "normal",
                 underline: "none",
                 hAlign: "center",
-                fontFamily: "sans-serif",
-                fontSize: "16",
-                color: "black",
-                bColor: "none",
+                fontFamily: "Roboto",
+                fontSize: "16px",
+                color: "#000000",
+                bColor: "#ffffff",
                 value: "",
                 formula: "",
                 children: [],
@@ -171,14 +176,14 @@ function handleCellClick(e) {
     } else {
         italic.classList.add("active-btn");
     }
-    if (cellObj.hAlign == "center") {
-        document.querySelector(".center").classList.add("active-btn");
-    }
     if (cellObj.formula) {
         formulaBar.value = cellObj.formula;
     } else {
         formulaBar.value = "";
     }
+    fontSelect.value = cellObj.fontFamily;
+    fontSizeSelect.value = cellObj.fontSize;
+    fontColor.value = cellObj.color;
 }
 
 //excel me first cell clicked hota hai already
@@ -237,10 +242,69 @@ italic.addEventListener("click", function () {
     }
 });
 
+//alignment
 for (let i = 0; i < alignBtns.length; i++) {
     alignBtns[i].addEventListener("click", function () {
         let allignment = alignBtns[i].getAttribute("class");
         let uiElem = setUiElem();
+        let rid = uiElem.getAttribute("rid");
+        let cid = uiElem.getAttribute("cid");
+        let cellObj = dbSheet[rid][cid];
         uiElem.style.textAlign = allignment;
+        cellObj.hAlign = allignment;
+        
     });
 }
+
+//font-size
+
+fontSizeSelect.addEventListener("change",function(){
+    let fontSize = fontSizeSelect.value;
+    let uiElem = setUiElem();
+    let rid = uiElem.getAttribute("rid");
+    let cid = uiElem.getAttribute("cid");
+    let cellObj = dbSheet[rid][cid];
+
+    uiElem.style.fontSize = fontSize;
+    cellObj.fontSize = fontSize;
+})
+
+//font-famiy
+
+fontSelect.addEventListener("change",function(){
+    let font = fontSelect.value;
+    let uiElem = setUiElem();
+    let rid = uiElem.getAttribute("rid");
+    let cid = uiElem.getAttribute("cid");
+    let cellObj = dbSheet[rid][cid];
+
+    uiElem.style.fontFamily = font;
+    cellObj.fontFamily = font;
+})
+
+//text-color
+
+fontColor.addEventListener("change",function(){
+    let color = fontColor.value;
+    let uiElem = setUiElem();
+    let rid = uiElem.getAttribute("rid");
+    let cid = uiElem.getAttribute("cid");
+    let cellObj = dbSheet[rid][cid];
+
+    uiElem.style.color = color;
+    cellObj.color = color;
+})
+
+//cell color
+
+bgColorSelect.addEventListener("change",function(){
+    let color = bgColorSelect.value;
+    let uiElem = setUiElem();
+    let rid = uiElem.getAttribute("rid");
+    let cid = uiElem.getAttribute("cid");
+    let cellObj = dbSheet[rid][cid];
+
+    uiElem.style.backgroundColor = color;
+    cellObj.bColor = color;
+    console.log(cellObj);
+})

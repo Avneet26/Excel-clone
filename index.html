@@ -5,6 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Excel Clone</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Newsreader:wght@400;500&family=Noto+Sans+TC&family=Open+Sans:wght@400;600&family=Raleway&family=Roboto:wght@300;400&family=Source+Sans+Pro&display=swap"
+            rel="stylesheet"
+        />
         <script
             src="https://kit.fontawesome.com/3b4f251a02.js"
             crossorigin="anonymous"
@@ -17,47 +22,62 @@
     </head>
     <body>
         <div class="menu-container">
-
             <div class="nos-container">
                 <button class="new">N</button>
-                <input type="file" class="open">
+                <input type="file" class="open" />
                 <button class="download">D</button>
             </div>
 
             <select class="font-size">
-                <option value="8">8px</option>
-                <option value="10">10px</option>
-                <option value="12">12px</option>
-                <option value="14">14px</option>
+                <option value="10px">10px</option>
+                <option value="14px">14px</option>
+                <option value="16px" selected>16px</option>
+                <option value="18px">18px</option>
+                <option value="22px">22px</option>
+                <option value="24px">24px</option>
+                <option value="26px">26px</option>
+                <option value="30px">30px</option>
             </select>
             <select class="font-family">
-                <option value="monospace">Monospace</option>
-                <option value="sans-serif">Sans-serif</option>
-                <option value="roboto">Roboto</option>
-                <option value="georgia">Georgia</option>
-                <option value="montserrat">Montserrat</option>
+                <option value="Open Sans">Open Sans</option>
+                <option value="Newsreader">Newsreader</option>
+                <option value="Roboto" selected>Roboto</option>
+                <option value="Raleway">Raleway</option>
+                <option value="Montserrat">Montserrat</option>
+                <option value="Noto Sans TC">Noto sans</option>
+                <option value="Source Sans Pro">Source Sans Pro</option>
             </select>
 
             <div class="bui-align">
                 <div class="bui-container">
                     <button class="bold"><i class="fas fa-bold"></i></button>
-                    <button class="italic"><i class="fas fa-italic"></i></button>
-                    <button class="underline"><i class="fas fa-underline"></i></button>
+                    <button class="italic">
+                        <i class="fas fa-italic"></i>
+                    </button>
+                    <button class="underline">
+                        <i class="fas fa-underline"></i>
+                    </button>
                 </div>
                 <div class="align-container">
-                    <button class="left"><i class="fas fa-align-left"></i></button>
-                    <button class="center"><i class="fas fa-align-center"></i></button>
-                    <button class="right"><i class="fas fa-align-right"></i></button>
+                    <button class="left">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button class="center">
+                        <i class="fas fa-align-center"></i>
+                    </button>
+                    <button class="right">
+                        <i class="fas fa-align-right"></i>
+                    </button>
                 </div>
             </div>
 
             <div class="color-container">
-                <input type="color" class="font-color">
-                <input type="color" class="cell-color">
+                <input type="color" class="font-color" />
+                <input type="color" class="cell-color" />
             </div>
         </div>
         <div class="formula-container">
-            <input type="text" class="address-input" readonly/>
+            <input type="text" class="address-input" readonly />
             <input type="text" class="formula-input" />
         </div>
         <div class="grid-container">
