@@ -42,27 +42,98 @@ for (let i = 0; i < 100; i++) {
     }
     grid.appendChild(row);
 }
+let btnContainer = document.querySelector(".add-sheet-btn");
+let sheetList = document.querySelector(".sheet-list");
+let firstSheet = document.querySelector(".sheet");
+let sheetArray = [];
+let dbSheet;
+firstSheet.addEventListener("click", makeActive);
+firstSheet.click();
 
-let dbSheet = [];
-for (let i = 0; i < rows; i++) {
-    let row = [];
-    for (let j = 0; j < cols; j++) {
-        let cell = {
-            bold: "normal",
-            italics: "normal",
-            underline: "none",
-            hAlign: "center",
-            fontFamily: "sans-serif",
-            fontSize: "16",
-            color: "black",
-            bgColor: "white",
-            value: "",
-            formula: "",
-            children: []
-        };
-        row.push(cell);
+btnContainer.addEventListener("click", function () {
+    //get all sheets
+    let AllSheets = document.querySelectorAll(".sheet");
+    //get index of last sheet
+    let lastSheet = AllSheets[AllSheets.length - 1];
+    let Lastindx = lastSheet.getAttribute("idx");
+    Lastindx = Number(Lastindx);
+    //create new sheet
+    let NewSheet = document.createElement("div");
+    NewSheet.setAttribute("class", "sheet");
+    //add its index
+    NewSheet.setAttribute("idx", `${Lastindx + 1}`);
+    NewSheet.innerText = `Sheet ${Lastindx + 2}`;
+    //add sheet to page
+    sheetList.appendChild(NewSheet);
+    //remove active class from all
+    for (let i = 0; i < AllSheets.length; i++) {
+        AllSheets[i].classList.remove("active");
     }
-    dbSheet.push(row);
+    //add active class to the new page
+    NewSheet.classList.add("active");
+    createSheet();
+    dbSheet = sheetArray[Lastindx + 1];
+    //add eventlistener to the new page side by side
+    NewSheet.addEventListener("click", makeActive);
+});
+
+function makeActive(e) {
+    //current target gets the sheet  which is clicked
+    let sheet = e.currentTarget;
+    //remove active class from all sheets
+    let AllSheets = document.querySelectorAll(".sheet");
+    for (let i = 0; i < AllSheets.length; i++) {
+        AllSheets[i].classList.remove("active");
+    }
+    //add active class to clicked sheet
+    sheet.classList.add("active");
+
+    let idx = sheet.getAttribute("idx");
+    if (!sheetArray[idx]) {
+        createSheet();
+    }
+    dbSheet = sheetArray[idx];
+    setUI();
+}
+function createSheet() {
+    let NewDB = [];
+    for (let i = 0; i < rows; i++) {
+        let row = [];
+        for (let j = 0; j < cols; j++) {
+            let cell = {
+                bold: "normal",
+                italics: "normal",
+                underline: "none",
+                hAlign: "center",
+                fontFamily: "sans-serif",
+                fontSize: "16",
+                color: "black",
+                bColor: "none",
+                value: "",
+                formula: "",
+                children: [],
+            };
+            let elem = document.querySelector(
+                `.grid .cell[rid='${i}'][cid='${j}']`
+            );
+            elem.innerText = "";
+            row.push(cell);
+        }
+        NewDB.push(row);
+    }
+    sheetArray.push(NewDB);
+}
+
+function setUI() {
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            let elem = document.querySelector(
+                `.grid .cell[rid='${i}'][cid='${j}']`
+            );
+            let value = dbSheet[i][j].value;
+            elem.innerText = value;
+        }
+    }
 }
 
 let allcells = document.querySelectorAll(".grid .cell");
@@ -102,6 +173,11 @@ function handleCellClick(e) {
     }
     if (cellObj.hAlign == "center") {
         document.querySelector(".center").classList.add("active-btn");
+    }
+    if (cellObj.formula) {
+        formulaBar.value = cellObj.formula;
+    } else {
+        formulaBar.value = "";
     }
 }
 
@@ -160,7 +236,6 @@ italic.addEventListener("click", function () {
         italic.classList.remove("active-btn");
     }
 });
-
 
 for (let i = 0; i < alignBtns.length; i++) {
     alignBtns[i].addEventListener("click", function () {

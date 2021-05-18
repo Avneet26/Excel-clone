@@ -6,35 +6,62 @@
 //4. Get cell address from address bar
 //5. Set value in UI and in database
 
-for(let i=0;i<allcells.length;i++){
-    allcells[i].addEventListener("blur",function(){
+
+//Remove formula
+//1. if on blur value enterd ins not equal to the value in cell
+//2. get parents from formula
+//3. remove names of children from parent array
+//4. clear your formula from database
+//When we update formula
+//1. if formula enterd is not equal to the entered formula
+//same work as above
+// set new formula
+for (let i = 0; i < allcells.length; i++) {
+    allcells[i].addEventListener("blur", function () {
         let data = allcells[i].innerText;
         let address = addressInput.value;
         let rid = allcells[i].getAttribute("rid");
         let cid = allcells[i].getAttribute("cid");
         // let { rid, cid } = getRIDCIDfromAddress(address);
         let cellObject = dbSheet[rid][cid];
+
+        if (cellObject.value == data) {
+            return;
+        }
+
+        if (cellObject.formula) {
+            removeFormula(cellObject, address);
+            formulaBar.value = "";
+        }
+
         cellObject.value = data;
         updateChildren(cellObject);
-    })
+    });
 }
 
-formulaBar.addEventListener("keydown",function(e){
-    if(e.key == "Enter" && formulaBar.value){
+formulaBar.addEventListener("keydown", function (e) {
+    if (e.key == "Enter" && formulaBar.value) {
         let cFormula = formulaBar.value;
-        let value = evaluateFormula(cFormula);
         let address = addressInput.value;
-        setCell(value,cFormula);
-        setParentArray(cFormula,address);
-    }
-})
+        let { rid, cid } = getidFromAddress(address);
+        let cellObject = dbSheet[rid][cid];
 
-function evaluateFormula(formula){
+        if (cFormula != cellObject.formula) {
+            removeFormula(cellObject, address);
+        }
+
+        let value = evaluateFormula(cFormula);
+        setCell(value, cFormula);
+        setParentArray(cFormula, address);
+    }
+});
+
+function evaluateFormula(formula) {
     let formulaTokens = formula.split(" ");
-    for(let i=0;i<formulaTokens.length;i++){
+    for (let i = 0; i < formulaTokens.length; i++) {
         let ascii = formulaTokens[i].charCodeAt(0);
-        if(ascii >= 65 && ascii <= 90){
-            let {rid,cid} = getidFromAddress(formulaTokens[i]);
+        if (ascii >= 65 && ascii <= 90) {
+            let { rid, cid } = getidFromAddress(formulaTokens[i]);
             let value = dbSheet[rid][cid].value;
             formulaTokens[i] = value;
         }
@@ -43,10 +70,10 @@ function evaluateFormula(formula){
     return eval(evalFormula);
 }
 
-function setCell(value,formula){
+function setCell(value, formula) {
     let uicellElem = setUiElem();
     uicellElem.innerText = value;
-    let {rid,cid} = getidFromAddress(addressInput.value);
+    let { rid, cid } = getidFromAddress(addressInput.value);
     dbSheet[rid][cid].value = value;
     dbSheet[rid][cid].formula = formula;
 }
@@ -66,12 +93,12 @@ function getidFromAddress(address) {
     return { rid, cid };
 }
 
-function setParentArray(formula,chAddress){
+function setParentArray(formula, chAddress) {
     let formulaTokens = formula.split(" ");
-    for(let i=0;i<formulaTokens.length;i++){
+    for (let i = 0; i < formulaTokens.length; i++) {
         let ascii = formulaTokens[i].charCodeAt(0);
-        if(ascii >= 65 && ascii <= 90){
-            let {rid,cid} = getidFromAddress(formulaTokens[i]);
+        if (ascii >= 65 && ascii <= 90) {
+            let { rid, cid } = getidFromAddress(formulaTokens[i]);
             let parentObj = dbSheet[rid][cid];
             console.log(parentObj);
             parentObj.children.push(chAddress);
@@ -79,8 +106,8 @@ function setParentArray(formula,chAddress){
     }
 }
 
-function updateChildren(cellObject){
-    console.log(cellObject)
+function updateChildren(cellObject) {
+    console.log(cellObject);
     let children = cellObject.children;
     for (let i = 0; i < children.length; i++) {
         // children name
@@ -97,10 +124,26 @@ function updateChildren(cellObject){
 }
 function SetChildrenCell(value, formula, rid, cid) {
     // let uicellElem = findUICellElement();
-    // db update 
-    let uiCellElement =
-    document.querySelector(`.cell[rid="${rid}"][cid="${cid}"]`);
+    // db update
+    let uiCellElement = document.querySelector(
+        `.cell[rid="${rid}"][cid="${cid}"]`
+    );
     uiCellElement.innerText = value;
-    sheetDB[rid][cid].value = value;
-    sheetDB[rid][cid].formula = formula;
+    dbSheet[rid][cid].value = value;
+    dbSheet[rid][cid].formula = formula;
+}
+
+function removeFormula(cellObject, myVal) {
+    let formula = cellObject.formula;
+    let formulaTokens = formula.split(" ");
+    for (let i = 0; i < formulaTokens.length; i++) {
+        let ascii = formulaTokens[i].charCodeAt(0);
+        if (ascii >= 65 && ascii <= 90) {
+            let { rid, cid } = getidFromAddress(formulaTokens[i]);
+            let parentObj = dbSheet[rid][cid];
+            let idx = parentObj.children.indexOf(myVal);
+            parentObj.children.splice(idx, 1);
+        }
+    }
+    cellObject.formula = "";
 }
