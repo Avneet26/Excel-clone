@@ -14,3 +14,17 @@
 4. Multiple Sheets
 
 5. New / Download / Open File
+
+6. Contraints for Formula
+    - Column A to Z
+    - Rows 1 to 100
+    - Formula can be set only through formula bar
+    - Formula tokens should be space seperated
+    -
+    - cells should have b1 = a1 + a2
+    - change in parent should have change in child
+    - if you manually set value in children then it removes the fromula from it
+    - 
+    -not working on 
+        = formula validity
+        = formula syntax

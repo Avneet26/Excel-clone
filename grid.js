@@ -5,6 +5,7 @@ let bold = document.querySelector(".bold");
 let underline = document.querySelector(".underline");
 let italic = document.querySelector(".italic");
 let alignBtns = document.querySelectorAll(".align-container *");
+let formulaBar = document.querySelector(".formula-input");
 
 let rows = 100;
 for (let i = 1; i <= 100; i++) {
@@ -55,6 +56,9 @@ for (let i = 0; i < rows; i++) {
             fontSize: "16",
             color: "black",
             bgColor: "white",
+            value: "",
+            formula: "",
+            children: []
         };
         row.push(cell);
     }
@@ -157,20 +161,6 @@ italic.addEventListener("click", function () {
     }
 });
 
-function setUiElem() {
-    let address = addressInput.value;
-    let riciObj = getidFromAddress(address);
-    let rid = riciObj.rid;
-    let cid = riciObj.cid;
-    let uiCell = document.querySelector(`.cell[rid="${rid}"][cid="${cid}"]`);
-    return uiCell;
-}
-
-function getidFromAddress(address) {
-    let cid = Number(address.charCodeAt(0)) - 65;
-    let rid = Number(address.slice(1)) - 1;
-    return { rid, cid };
-}
 
 for (let i = 0; i < alignBtns.length; i++) {
     alignBtns[i].addEventListener("click", function () {
