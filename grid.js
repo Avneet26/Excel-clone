@@ -184,6 +184,7 @@ function handleCellClick(e) {
     fontSelect.value = cellObj.fontFamily;
     fontSizeSelect.value = cellObj.fontSize;
     fontColor.value = cellObj.color;
+    bgColorSelect.value = cellObj.bColor;
 }
 
 //excel me first cell clicked hota hai already

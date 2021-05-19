@@ -28,9 +28,13 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    
+}
+.bui-align button{
+    transition: all 200ms ease;
+    cursor: pointer;
 }
 .bui-container{
-    background-color: white;
     height: 2rem;
     width: 95%;
     display: flex;
@@ -41,6 +45,8 @@ body {
     height: 97%;
     width: 32%;
     border: 1px solid #aaa;
+    /* background-color: #fff; */
+    border-radius: 5px;
 }
 .align-container{
     height: 2rem;
@@ -54,15 +60,30 @@ body {
     width: 32%;
     background-color: white;
     border: 1px solid #aaa;
+    border-radius: 5px;
 }
 .color-container{
-    border: 1px solid;
     height: 3.5rem;
     width: 7rem;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    margin-left: 1.5rem; 
+}
+.color-container i{
+    color: rgb(66, 66, 66)
+}
+
+.color-container div input{
+    margin-left: 0.5rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid #aaa;
 }
 .active-btn{
     background-color: rgb(192, 255, 192);
 }
+
 
 /*FORMULA BAR STYLING*/
 .formula-container {
@@ -142,7 +163,6 @@ body {
     display: flex;
 }
 .active-cell{
-    border: 1px solid rgb(170, 255, 208);
     background-color: rgb(240, 240, 240);
 }
 
