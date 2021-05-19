@@ -23,31 +23,34 @@
     <body>
         <div class="menu-container">
             <div class="nos-container">
-                <button class="new">N</button>
-                <input type="file" class="open" />
-                <button class="download">D</button>
+                <button class="new nos-button">New</button>
+                <label for="files" class="nos-button">Open</label>
+                <input type="file" id="files" class="open" style="display: none"/>
+                <button class="download nos-button">Download</button>
             </div>
 
-            <select class="font-size">
-                <option value="10px">10px</option>
-                <option value="14px">14px</option>
-                <option value="16px" selected>16px</option>
-                <option value="18px">18px</option>
-                <option value="22px">22px</option>
-                <option value="24px">24px</option>
-                <option value="26px">26px</option>
-                <option value="30px">30px</option>
-            </select>
-            <select class="font-family">
-                <option value="Open Sans">Open Sans</option>
-                <option value="Newsreader">Newsreader</option>
-                <option value="Roboto" selected>Roboto</option>
-                <option value="Raleway">Raleway</option>
-                <option value="Montserrat">Montserrat</option>
-                <option value="Noto Sans TC">Noto sans</option>
-                <option value="Source Sans Pro">Source Sans Pro</option>
-            </select>
-
+            <div class="font-select">
+                <select class="font-size">
+                    <option value="10px">10px</option>
+                    <option value="14px">14px</option>
+                    <option value="16px" selected>16px</option>
+                    <option value="18px">18px</option>
+                    <option value="22px">22px</option>
+                    <option value="24px">24px</option>
+                    <option value="26px">26px</option>
+                    <option value="30px">30px</option>
+                </select>
+                <select class="font-family">
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Newsreader">Newsreader</option>
+                    <option value="Roboto" selected>Roboto</option>
+                    <option value="Raleway">Raleway</option>
+                    <option value="Montserrat">Montserrat</option>
+                    <option value="Noto Sans TC">Noto sans</option>
+                    <option value="Source Sans Pro">Source Sans Pro</option>
+                </select>
+            </div>
+            
             <div class="bui-align">
                 <div class="bui-container">
                     <button class="bold"><i class="fas fa-bold"></i></button>
